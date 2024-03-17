@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-healthsync-doctor-service
+spec:
+  selector:
+    app: docker-healthsync-doctor-service
+  ports:
+    - port: 35353
+      targetPort: 3001
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-healthsync-doctor-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-healthsync-doctor-service
+  template:
+    metadata:
+      labels:
+        app: docker_healthsync-doctor-service
+    spec:
+      containers:
+        - name: docker-healthsync-doctor-service
+          image: sandipa1982/docker_healthsync_doctor_service:v102
+          ports:
+            - containerPort: 3040
+          resources:
+            limits:
+              cpu: "2"
+              memory: "1024Mi"
+            requests:
+              cpu: "0.01"
+              memory: "5Mi"
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: docker-healthsync-doctor-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: docker-healthsync-doctor-service
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
