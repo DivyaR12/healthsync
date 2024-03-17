@@ -143,7 +143,8 @@ setState(() {
     if (user != null) {
       showToast(message: "User is successfully created");
       
-      Navigator.pushNamed(context, '/register');
+      Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false, arguments: user.uid);
+
       
     } else {
       showToast(message: "Some error happend");

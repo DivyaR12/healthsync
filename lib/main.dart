@@ -3,10 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // Import Firebase Auth
 import 'package:healthsync/features/app/splashscreen.dart';
+import 'package:healthsync/features/user_auth/pages/appt_model.dart';
 import 'package:healthsync/features/user_auth/pages/homepage.dart';
 import 'package:healthsync/features/user_auth/pages/login.dart';
 import 'package:healthsync/features/user_auth/pages/signup.dart';
 import 'package:healthsync/features/user_auth/pages/register.dart';
+import 'package:healthsync/features/user_auth/pages/searchdoctor.dart';
+import 'package:healthsync/features/user_auth/pages/appointment.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +48,16 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/signUp': (context) => const SignUpPage(),
         '/register':  (context) => const UserDetailsForm(),
-        '/home': (context) =>  PatientHome(),
+        '/home': (context) =>  ImageDisplay(),
+        '/listdoctor':(context) =>  const ListDoctor(userId:''),
+        '/appointment': (context) => AppointmentDet(userId: '', doctorId: '', doctorName: ''),
+        /*'/appointment':(context) => MaterialPageRoute(
+              builder: (context) => Appointment(
+                userId: '',
+                doctorId: '',
+                doctorName: '',
+              ),
+            ),*/
       },
     );
   }

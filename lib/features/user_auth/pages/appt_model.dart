@@ -8,7 +8,7 @@ class Appointment {
   final String? id;
 
   Appointment(
-      {required this.name, required this.time, required this.service, required this.status, this.id});
+      {required this.name, required this.time, required this.service, required this.status, this.id, required Map<dynamic, String> arguments});
 
   factory Appointment.fromJson(Map<String, dynamic> json) {
     return Appointment(
@@ -16,7 +16,7 @@ class Appointment {
         time: (json['time']).toDate(),
         service: json['service'],
         status: json['status'],
-        id: json['id']);
+        id: json['id'], arguments: {});
   }
   
   toJson() {
